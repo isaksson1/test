@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Anteckningar</title>
+{% endblock %}
+
+{% block body %}
+<div class="content">
+    {% if tasks|length < 1 %}
+    <h4 style="text-align: center; color: white;">Du har för närvarande inga anteckningar. Lägg till nedan!</h4>
+    {% else %}
+    <table id="sparat">
+        <tr>
+            <th>Anteckningar <i class="far fa-sticky-note"></i></th>
+            <th>När de lades till <i class="far fa-clock"></i>
+            </th>
+            <th>Ändra <i class='fas fa-pencil-alt'></i></th>
+        </tr>
+        {% for task in tasks %}
+            <tr>
+                <td style="white-space: pre-line"> <div class="namnanteckning">Titel: <b><i>{{ task.namnge }}</i></b></div> <div class="anteckningen"><br>{{ task.content }}</div></td>
+                <td><div class="datum">{{ task.date_created.date() }}</div></td>
+                <td>
+                    <div class="redigeralinks"><a href="/delete/{{task.id}}">Radera</a>
+                    <br>
+                    <a href="/update/{{task.id}}">Redigera</a></div>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+
+    <div class="form">
+        <form action="/" method="POST">
+            <div class="ikon1"> <i class='fas fa-sticky-note'></i></div>
+            <input type="text" name="namngivning" id="namn" placeholder="Namn På Anteckning"> </input>
+            <div class="ikon2"> <i class='fas fa-pencil-alt'></i></div>
+            <textarea rows = "10" type="text" name="content" id="content" placeholder="Anteckning"></textarea>
+            <button type="submit" value="Skapa Anteckning" id="skickaknapp">Spara</button>
+        </form>
+    </div>
+</div>
+
+
+
+
+{% endblock %}
